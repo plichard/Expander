@@ -24,12 +24,24 @@
     <ClCompile Include="src\TransferFunction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Literal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LiteralElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Factor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\TransferFunction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Literal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LiteralElement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

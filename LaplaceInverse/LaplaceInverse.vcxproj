@@ -12,11 +12,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Factor.cpp" />
+    <ClCompile Include="src\Literal.cpp" />
+    <ClCompile Include="src\LiteralElement.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\TransferFunction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Factor.h" />
+    <ClInclude Include="src\Literal.h" />
+    <ClInclude Include="src\LiteralElement.h" />
     <ClInclude Include="src\TransferFunction.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

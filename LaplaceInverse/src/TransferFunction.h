@@ -12,6 +12,7 @@ public:
 	~TransferFunction(void);
 	void AddNum(void);
 	void AddDenom(void);
+
 private:
 	FactorVec numerator;
 	FactorVec denominator;
