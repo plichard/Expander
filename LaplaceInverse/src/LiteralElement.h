@@ -1,6 +1,7 @@
 #pragma once
 #include "Literal.h"
 #include <map>
+#include <vector>
 
 typedef std::map<unsigned int,Literal*> LiteralMap;
 typedef LiteralMap::iterator LiteralMapIt;
@@ -30,6 +31,18 @@ public:
 			elements[l->power] = new Literal(it->second->coef+l->coef,l->power,l,it->second);
 	}
 
+	void Simplify(void)
+	{
+		std::vector<int> to_erase;
+		for(LiteralMapIt it = elements.begin();it!=elements.end();it++)
+		{
+			if(it->second->coef == 0)
+				to_erase.push_back(it->first);
+		}
+		for(std::vector<int>::iterator it = to_erase.begin(); it != to_erase.end();it++)
+			elements.erase(*it);
+	}
+
 	LiteralElement* operator*(LiteralElement& l2)
 	{
 		LiteralElement* result = new LiteralElement();
@@ -37,9 +50,11 @@ public:
 		{
 			for(LiteralMapIt it2 = l2.elements.begin();it2 != l2.elements.end();it2++)
 			{
-				result->Add((*it1->second)*(*it2->second));
+
+				result->Add((*(it1->second))*(*(it2->second)));
 			}
 		}
+		result->Simplify();
 		return result;
 	}
 

@@ -4,6 +4,7 @@
 using namespace std;
 #include "TransferFunction.h"
 #include "Literal.h"
+#include "LiteralElement.h"
 
 typedef map<string,TransferFunction*> TransferMap;
 typedef TransferMap::iterator TransferMapIt;
@@ -12,10 +13,9 @@ TransferMap functions;
 
 int main(int argc, char **argv)
 {
-	Literal *l1 = new Literal(2,0);
-	Literal *l2 = new Literal(4,2);
+	LiteralElement elem1;
 
-	Literal* l3 = (*l1)*(*l2);
-
+	
+	elem1.Print();cout<<endl;
 	return 0;
 }

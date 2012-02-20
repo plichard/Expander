@@ -6,10 +6,10 @@ public:
 	Literal(void):coef(0),power(0){}
 	Literal(long double coef,unsigned int power,Literal* parent1 = NULL,Literal* parent2 = NULL):coef(coef),power(power)
 	{
-		if(parent1)
+		/*if(parent1)
 			delete parent1;
 		if(parent2)
-			delete parent2;
+			delete parent2;*/
 	}
 	~Literal(void);
 	long double coef;
