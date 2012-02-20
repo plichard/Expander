@@ -9,7 +9,7 @@ typedef LiteralMap::iterator LiteralMapIt;
 class LiteralElement
 {
 public:
-	LiteralElement(void);
+	LiteralElement(bool interactive = false);
 	~LiteralElement(void);
 	Literal* Get(unsigned int index)
 	{
@@ -45,7 +45,7 @@ public:
 
 	LiteralElement* operator*(LiteralElement& l2)
 	{
-		LiteralElement* result = new LiteralElement();
+		LiteralElement* result = new LiteralElement(false);
 		for(LiteralMapIt it1 = elements.begin();it1 != elements.end();it1++)
 		{
 			for(LiteralMapIt it2 = l2.elements.begin();it2 != l2.elements.end();it2++)
@@ -56,6 +56,19 @@ public:
 		}
 		result->Simplify();
 		return result;
+	}
+
+	void operator*=(LiteralElement& l2)
+	{
+		for(LiteralMapIt it1 = elements.begin();it1 != elements.end();it1++)
+		{
+			for(LiteralMapIt it2 = l2.elements.begin();it2 != l2.elements.end();it2++)
+			{
+
+				this->Add((*(it1->second))*(*(it2->second)));
+			}
+		}
+		this->Simplify();
 	}
 
 protected:

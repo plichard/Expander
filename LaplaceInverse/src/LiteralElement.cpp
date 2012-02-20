@@ -3,8 +3,10 @@
 #include <cstdio>
 using namespace std;
 
-LiteralElement::LiteralElement(void)
+LiteralElement::LiteralElement(bool interactive)
 {
+	if(!interactive)
+		return;
 	int exp = 0;
 	int max_exp = 0;
 	long double coef;
@@ -53,7 +55,9 @@ void LiteralElement::Print(void)
 		else
 			sprintf(sign_buffer,"");
 
-		if(it->second->coef == 1)
+		if(it->second->coef == 1 && it->first == 0)
+			sprintf(coef_buffer,"1");
+		else if(it->second->coef == 1)
 			sprintf(coef_buffer,"");
 		else
 			sprintf(coef_buffer,"%1.0lf",it->second->coef);

@@ -13,9 +13,11 @@ TransferMap functions;
 
 int main(int argc, char **argv)
 {
-	LiteralElement elem1;
+	TransferFunction f1;
+	f1.AddNum();
+	f1.AddDenom();
+	f1.AddDenom();
 
-	
-	elem1.Print();cout<<endl;
+	f1.FindFactors();
 	return 0;
 }

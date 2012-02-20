@@ -1,9 +1,9 @@
 #pragma once
-#include "Factor.h"
+#include "LiteralElement.h"
 #include <vector>
 
-typedef std::vector<Factor*> FactorVec;
-typedef FactorVec::iterator FactorVecIt;
+typedef std::vector<LiteralElement*> ElementVec;
+typedef ElementVec::iterator ElementVecIt;
 
 class TransferFunction
 {
@@ -12,9 +12,11 @@ public:
 	~TransferFunction(void);
 	void AddNum(void);
 	void AddDenom(void);
+	void FindFactors(void);
 
 private:
-	FactorVec numerator;
-	FactorVec denominator;
+	ElementVec numerator;
+	ElementVec denominator;
+	ElementVec factors;
 };
 
