@@ -21,8 +21,31 @@ LiteralElement::LiteralElement(bool interactive)
 	Simplify();
 }
 
+const int LiteralElement::GetMaxPower(void)
+{
+	int max = 0;
+	for(LiteralMapIt it = elements.begin(); it != elements.end(); it++)
+	{
+		if(it->first > max)
+			max = it->first;
+	}
+	return max;
+}
+
 LiteralElement::~LiteralElement(void)
 {
+	for(LiteralMapIt it = elements.begin(); it != elements.end();it++)
+	{
+		delete it->second;
+	}
+}
+
+void LiteralElement::ChangePower(int d_power)
+{
+	for(LiteralMapIt it = elements.begin(); it != elements.end(); it++)
+	{
+		it->second->power++;
+	}
 }
 
 void LiteralElement::Print(void)

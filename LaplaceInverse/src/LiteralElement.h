@@ -9,7 +9,7 @@ typedef LiteralMap::iterator LiteralMapIt;
 class LiteralElement
 {
 public:
-	LiteralElement(bool interactive = false);
+	explicit LiteralElement(bool interactive = false);
 	~LiteralElement(void);
 	Literal* Get(unsigned int index)
 	{
@@ -31,6 +31,8 @@ public:
 			elements[l->power] = new Literal(it->second->coef+l->coef,l->power,l,it->second);
 	}
 
+	const int GetMaxPower(void);
+
 	void Simplify(void)
 	{
 		std::vector<int> to_erase;
@@ -42,6 +44,8 @@ public:
 		for(std::vector<int>::iterator it = to_erase.begin(); it != to_erase.end();it++)
 			elements.erase(*it);
 	}
+
+	void ChangePower(int d_power);
 
 	LiteralElement* operator*(LiteralElement& l2)
 	{

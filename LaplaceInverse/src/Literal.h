@@ -3,8 +3,8 @@
 class Literal
 {
 public:
-	Literal(void):coef(0),power(0){}
-	Literal(long double coef,unsigned int power,Literal* parent1 = NULL,Literal* parent2 = NULL):coef(coef),power(power)
+	explicit Literal(void):coef(0),power(0){}
+	explicit Literal(long double coef,unsigned int power,Literal* parent1 = NULL,Literal* parent2 = NULL):coef(coef),power(power)
 	{
 		/*if(parent1)
 			delete parent1;
