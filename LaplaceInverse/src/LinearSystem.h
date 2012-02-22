@@ -10,6 +10,7 @@ public:
 	void Solve(void);
 	void Print(void);
 	void SetNullCoefs(int m);
+	long double GetCoef(int m);
 
 private:
 	long double *m_matrix;

@@ -14,11 +14,22 @@ TransferMap functions;
 int main(int argc, char **argv)
 {
 	TransferFunction f1;
-	f1.AddNum();
-	f1.AddDenom();
-	f1.AddDenom();
+	int num,denom;
+	cout << "number of numerator factors: ";
+	cin >> num;
+	for(int i = 0; i < num; i++)
+	{
+		f1.AddNum();
+	}
+
+	cout << "number of denominator factors: ";
+	cin >> denom;
+	for(int i = 0; i < denom; i++)
+	{
+		f1.AddDenom();
+	}
 
 	f1.FindFactors();
-	getchar();
+	cout << "Factors: "; f1.PrintFactors(); cout << endl;
 	return 0;
 }

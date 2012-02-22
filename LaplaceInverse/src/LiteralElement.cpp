@@ -48,6 +48,16 @@ void LiteralElement::ChangePower(int d_power)
 	}
 }
 
+void LiteralElement::UglyPrint(void)
+{
+	cout << "(";
+	for(LiteralMapIt it = elements.begin(); it != elements.end();it++)
+	{
+		
+	}
+	cout<< ")";
+}
+
 void LiteralElement::Print(void)
 {
 	char coef_buffer[32];

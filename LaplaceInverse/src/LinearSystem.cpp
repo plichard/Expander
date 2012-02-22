@@ -29,6 +29,16 @@ void LinearSystem::SetNullCoefs(int m)
 	m_null_coefs++;
 }
 
+long double LinearSystem::GetCoef(int m)
+{
+	for(int i = 0; i < m_size*1.5;i++)
+	{
+		if(Get(i,m) == 1)
+			return Get(i,m_size);
+	}
+	return 0;
+}
+
 void LinearSystem::Solve(void) // solve using the gauss method (Reduced echelon form)
 {
 
@@ -40,7 +50,7 @@ void LinearSystem::Solve(void) // solve using the gauss method (Reduced echelon 
 	for(current_col = 0; current_col < m_size; current_col++)//we want to reduce each column
 	{
 		int suitable_line = -1;
-		cout << "Looking for the '"<<current_col<<"' column candidate"<<endl;
+		//cout << "Looking for the '"<<current_col<<"' column candidate"<<endl;
 		for(current_line = 0; current_line < m_size*1.5; current_line++)//lets find a suitable line
 		{
 			bool non_null = false;
@@ -56,7 +66,7 @@ void LinearSystem::Solve(void) // solve using the gauss method (Reduced echelon 
 				if(non_null)
 					continue;
 				suitable_line = current_line;
-				cout << "Found: "<<current_line<<endl;
+				//cout << "Found: "<<current_line<<endl;
 				break;
 			}
 		}
@@ -76,14 +86,14 @@ void LinearSystem::Solve(void) // solve using the gauss method (Reduced echelon 
 			if(Get(i,current_col) == 0)
 				continue;
 			SubstractLine(i,current_line,Get(i,current_col));
-			Print();
+			//Print();
 		}
 	}
 }
 
 void LinearSystem::SubstractLine(int n1, int n2, long double coef) //n1 = n1 - coef* n2
 {
-	cout << "substracting "<<n2<<"*"<<coef<<" from "<<n1<<endl;
+	//cout << "substracting "<<n2<<"*"<<coef<<" from "<<n1<<endl;
 	for(int i = 0; i < m_size + 1;i++)
 	{
 		Set(n1,i,Get(n1,i)-Get(n2,i)*coef);
@@ -101,6 +111,7 @@ void LinearSystem::Print(void)
 		}
 		cout<<endl;
 	}
+	cout<<endl<<"==============="<<endl;
 }
 
 void LinearSystem::DivideLine(int n, long double coef)
@@ -113,7 +124,7 @@ void LinearSystem::DivideLine(int n, long double coef)
 
 void LinearSystem::Add(int n, int m, long double value)
 {
-	cout << "adding "<<value<<" to line "<<n<<endl;
+	//cout << "adding "<<value<<" to line "<<n<<endl;
 	Set(n,m,Get(n,m) + value);
 }
 

@@ -27,6 +27,7 @@ public:
 	}
 
 	void Print(void);
+	void UglyPrint(void);
 
 	void Add(Literal* l)
 	{
@@ -95,7 +96,7 @@ public:
 		this->Simplify();
 	}
 
-
+	
 
 protected:
 	//std::vector<Literal*> elements; //all elements in basic denominator

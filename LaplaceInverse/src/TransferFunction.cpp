@@ -3,7 +3,7 @@
 #include "LinearSystem.h"
 using namespace std;
 
-TransferFunction::TransferFunction(void)
+TransferFunction::TransferFunction(void):factors(NULL),correct_factors(NULL)
 {
 	
 }
@@ -22,6 +22,32 @@ void TransferFunction::AddDenom(void)
 	denominator.push_back(new LiteralElement(true));
 	denominator.back()->Print();
 	cout<<endl;
+}
+
+
+void TransferFunction::PrintFactors(void)
+{
+	cout << "[ ";
+	for(int i = 0; i < denominator.size()*2-1; i++)
+	{
+		cout << correct_factors[i] << " | ";
+	}
+
+	cout << correct_factors[denominator.size()*2-1]<<" ]";
+}
+
+void TransferFunction::NicePrintFactors(void)
+{
+	cout << endl;
+	for(int i = 0; i < denominator.size(); i++)
+	{
+		LiteralElement e;
+		int index = denominator.size() - i;
+		e.Add(new Literal(factors[index*2 - 1],0));
+		e.Add(new Literal(factors[index*2 - 2],1));
+		e.Print();cout<<"/";denominator[i]->Print();cout <<" + ";
+	}
+	cout << endl;
 }
 
 
@@ -93,14 +119,36 @@ void TransferFunction::FindFactors(void)
 		Literal* b_elem = final_numerator->Get(i);
 		if(b_elem)
 		{
-			cout << "Setting b_coef "<<b_elem->coef<<endl;
+			//cout << "Setting b_coef "<<b_elem->coef<<endl;
 			linear_system.Set(i,denominator.size()*2,b_elem->coef);
 		}
 	}
-
+	
 	cout << "Before solving:"<<endl;
 	linear_system.Print();
 	linear_system.Solve();
 	cout << "After solving:"<<endl;
 	linear_system.Print();
+	
+	if(correct_factors)
+		delete[] correct_factors;
+
+	if(factors)
+		delete[] factors;
+
+	correct_factors = new long double[denominator.size()*2];
+	factors = new long double[denominator.size()*2];
+	for(int i = 0; i < denominator.size()*2;i++)
+	{
+		factors[i] = linear_system.GetCoef(i);
+	}
+
+
+	for(int i = 0; i < denominator.size(); i++)
+	{
+		int index = denominator.size() - i;
+		correct_factors[i*2+1] = factors[index*2 - 1];
+		correct_factors[i*2] = factors[index*2 - 2];
+	}
+
 }
