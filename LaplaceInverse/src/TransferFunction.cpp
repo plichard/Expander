@@ -43,7 +43,7 @@ void TransferFunction::FindFactors(void)
 	final_numerator->Add(new Literal(1,0));
 	for(int i = 0; i < numerator.size();i++)
 	{
-		final_numerator = (*final_numerator)*(*numerator[i]);
+		final_numerator = final_numerator->Multiply(numerator[i]);
 	}
 
 	cout << "Expanded numerator: ";final_numerator->Print(); cout << endl;
@@ -88,7 +88,15 @@ void TransferFunction::FindFactors(void)
 			linear_system.SetNullCoefs(i*2);
 	}
 
-	linear_system.Set(0,4,2);
+	for(int i = 0; i <= final_numerator->GetMaxPower(); i++)
+	{
+		Literal* b_elem = final_numerator->Get(i);
+		if(b_elem)
+		{
+			cout << "Setting b_coef "<<b_elem->coef<<endl;
+			linear_system.Set(i,denominator.size()*2,b_elem->coef);
+		}
+	}
 
 	cout << "Before solving:"<<endl;
 	linear_system.Print();
