@@ -1,8 +1,6 @@
 #include "TransferFunction.h"
-#include <fstream>
-#include <ios>
 #include <iostream>
-#include <cstdlib>
+#include <fstream>
 #include "LinearSystem.h"
 using namespace std;
 
@@ -34,12 +32,11 @@ void TransferFunction::Clean(void)
 void TransferFunction::LoadFromFile(string filename)
 {
 	Clean();
-	ifstream in_stream(filename.c_str());
-
+	ifstream in_stream(filename,ios::read);
 	if(!in_stream)
 	{
 		cout << "Could not open: "<<filename<<endl;
-		exit(1) ;
+		return ;
 	}
 	cout << "Opened "<<filename<<endl;
 	int n_num, n_denom,max_power;

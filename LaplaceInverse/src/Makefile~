@@ -1,0 +1,18 @@
+
+all: main.o TransferFunction.o
+	g++ main.o LiteralElement.o Literal.o LinearSystem.o TransferFunction.o -o main.x
+	
+main.o: main.cpp
+	g++ -c main.cpp -o main.o
+
+Literal.o: Literal.cpp Literal.h
+	g++ Literal.cpp -o Literal.o
+	
+LiteralElement.o: LiteralElement.cpp LiteralElement.h Literal.o
+	g++ -c LiteralElement.cpp -o LiteralElement.o
+	
+LinearSystem.o: LinearSystem.cpp LinearSystem.h LiteralElement.o Literal.o
+	g++ -c LinearSystem.cpp -o LinearSystem.o
+	
+TransferFunction.o: TransferFunction.cpp TransferFunction.h LiteralElement.o Literal.o LinearSystem.o
+	g++ -c TransferFunction.cpp -o TransferFunction.o

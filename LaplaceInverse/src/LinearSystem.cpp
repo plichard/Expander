@@ -1,5 +1,7 @@
 #include "LinearSystem.h"
 #include <iostream>
+#include <cstdlib>
+#include <cstring>
 using namespace std;
 
 LinearSystem::LinearSystem(int size):m_size(size),m_null_coefs(0)
