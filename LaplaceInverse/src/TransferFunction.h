@@ -1,6 +1,7 @@
 #pragma once
 #include "LiteralElement.h"
 #include <vector>
+#include <string>
 
 typedef std::vector<LiteralElement*> ElementVec;
 typedef ElementVec::iterator ElementVecIt;
@@ -15,6 +16,9 @@ public:
 	void FindFactors(void);
 	void PrintFactors(void);
 	void NicePrintFactors(void);
+	void LoadFromFile(std::string filename);
+	void Clean(void);
+	void Interactive(void);
 
 private:
 	ElementVec numerator;
