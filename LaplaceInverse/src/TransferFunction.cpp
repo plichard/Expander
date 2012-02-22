@@ -52,7 +52,7 @@ void TransferFunction::FindFactors(void)
 		denominator[i]->Print();
 	cout << endl;
 	cout << "We will need "<<denominator.size()<<" coefficients"<<endl;
-	LinearSystem system(denominator.size()*2);
+	LinearSystem linear_system(denominator.size()*2);
 
 	
 	ElementVec elems(denominator.size());
@@ -70,19 +70,14 @@ void TransferFunction::FindFactors(void)
 
 	for(int i = 0; i < denominator.size(); i++)
 	{
-		int power = denominator[i]->GetMaxPower();
-		if(power == 1)
+		for(int pow = 0; pow < denominator.size()*2-2;pow++) // -2: we ommit one factor
 		{
-
-		}
-		else if(power == 2)
-		{
-
-		}
-		else
-		{
-			cout << "We have a higher than 2 power denominator, cannot solve, sorry :("<<endl;
-			exit(1);
+			Literal* temp = elems[i]->Get(pow);
+			if(!temp)
+				continue;
+			
+			linear_system.Add(pow+1,i*2,temp->coef);
+			linear_system.Add(pow,i*2+1,temp->coef);
 		}
 	}
 }

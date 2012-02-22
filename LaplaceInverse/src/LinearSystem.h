@@ -6,7 +6,7 @@ public:
 	~LinearSystem(void);
 	inline const long double Get(int n, int m); // line, column
 	inline void Set(int n, int m, long double value);
-	inline void Add(int n, int m,long double value);
+	void Add(int n, int m, long double value);
 	void Solve(void);
 	
 

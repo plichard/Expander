@@ -63,7 +63,7 @@ void LinearSystem::DivideLine(int n, long double coef)
 	}
 }
 
-inline void LinearSystem::Add(int n, int m, long double value)
+void LinearSystem::Add(int n, int m, long double value)
 {
 	Set(n,m,Get(n,m) + value);
 }
