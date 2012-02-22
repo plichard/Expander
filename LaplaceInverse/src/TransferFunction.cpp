@@ -167,10 +167,10 @@ void TransferFunction::FindFactors(void)
 		{
 			if(i == current_factor) // we want to exclude the current factor, obviously
 				continue;
-			denominator[i]->Print();
+			//denominator[i]->Print();
 			elems[current_factor] = elems[current_factor]->Multiply(denominator[i]);
 		}
-		cout << " = ";elems[current_factor]->Print();cout << endl;
+		//cout << " = ";elems[current_factor]->Print();cout << endl;
 	}
 
 	Literal* temp = NULL;
@@ -199,11 +199,11 @@ void TransferFunction::FindFactors(void)
 		}
 	}
 	
-	cout << "Before solving:"<<endl;
-	linear_system.Print();
+//	cout << "Before solving:"<<endl;
+	//linear_system.Print();
 	linear_system.Solve();
-	cout << "After solving:"<<endl;
-	linear_system.Print();
+	//cout << "After solving:"<<endl;
+//	linear_system.Print();
 	
 	if(correct_factors)
 		delete[] correct_factors;
