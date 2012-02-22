@@ -8,12 +8,14 @@ public:
 	inline void Set(int n, int m, long double value);
 	void Add(int n, int m, long double value);
 	void Solve(void);
-	
+	void Print(void);
+	void SetNullCoefs(int m);
 
 private:
 	long double *m_matrix;
 	int m_size;
 	void SubstractLine(int n1,int n2,long double coef); //n1 = n1 - coef* n2
 	void DivideLine(int n,long double coef);
+	int m_null_coefs;
 };
 

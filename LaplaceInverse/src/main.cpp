@@ -19,5 +19,6 @@ int main(int argc, char **argv)
 	f1.AddDenom();
 
 	f1.FindFactors();
+	getchar();
 	return 0;
 }
