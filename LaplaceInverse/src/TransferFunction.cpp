@@ -106,10 +106,10 @@ void TransferFunction::PrintFactors(void)
 	cout << "[ ";
 	for(int i = 0; i < denominator.size()*2-1; i++)
 	{
-		cout << correct_factors[i] << " | ";
+		cout << factors[i] << " | ";
 	}
 
-	cout << correct_factors[denominator.size()*2-1]<<" ]";
+	cout << factors[denominator.size()*2-1]<<" ]";
 }
 
 void TransferFunction::NicePrintFactors(void)
@@ -167,8 +167,10 @@ void TransferFunction::FindFactors(void)
 		{
 			if(i == current_factor) // we want to exclude the current factor, obviously
 				continue;
-			elems[i] = elems[i]->Multiply(denominator[i]);
+			denominator[i]->Print();
+			elems[current_factor] = elems[current_factor]->Multiply(denominator[i]);
 		}
+		cout << " = ";elems[current_factor]->Print();cout << endl;
 	}
 
 	Literal* temp = NULL;

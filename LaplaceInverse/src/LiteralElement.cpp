@@ -93,7 +93,13 @@ void LiteralElement::Print(void)
 		else if(it->second->coef == 1)
 			sprintf(coef_buffer,"");
 		else
-			sprintf(coef_buffer,"%1.0lf",it->second->coef);
+			sprintf(coef_buffer,"%1.0Lf",it->second->coef);
+
+		if(it->second->coef == 0)
+		{
+			sprintf(var_buffer,"");
+			sprintf(coef_buffer,"");
+		}
 
 		cout<<sign_buffer<<coef_buffer<<var_buffer<<exp_buffer;
 	}

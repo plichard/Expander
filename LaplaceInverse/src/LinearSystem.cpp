@@ -20,10 +20,7 @@ inline const long double LinearSystem::Get(int n, int m)// line, column
 	return m_matrix[n*(m_size+1) + m];
 }
 
-inline void LinearSystem::Set(int n, int m, long double value)
-{
-	m_matrix[n*(m_size+1) + m] = value;
-}
+
 
 void LinearSystem::SetNullCoefs(int m)
 {

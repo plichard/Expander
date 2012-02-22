@@ -13,10 +13,27 @@ TransferMap functions;
 
 int main(int argc, char **argv)
 {
+	int choice;
 	TransferFunction f1;
-	f1.LoadFromFile("test.txt");
+	cout << "Interactive or from file(0,1): ";
+	cin >> choice;
 
+	if(choice == 1)
+	{
+		string filename;
+		cout << "File to load:";
+		cin >> filename;
+		f1.LoadFromFile(filename);
+	}
+	else if(choice == 0)
+		f1.Interactive();
+	else
+	{
+		cout << "Unkown choice, exiting."<<endl;
+		exit(0);
+	}
 	f1.FindFactors();
+
 	cout << "Factors: "; f1.PrintFactors(); cout << endl;
 	return 0;
 }
