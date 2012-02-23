@@ -14,11 +14,18 @@ TransferFunction::TransferFunction(void):factors(NULL),correct_factors(NULL)
 
 void TransferFunction::AddNum(void)
 {
+	if(factors)
+	{
+		delete[] factors;
+		factors = NULL;
+	}
 	cout << "Adding numerator"<<endl;
 	numerator.push_back(new LiteralElement(true));
 	numerator.back()->Print();
 	cout<<endl;
 }
+
+
 
 void TransferFunction::Clean(void)
 {
@@ -30,6 +37,8 @@ void TransferFunction::Clean(void)
 	{
 		delete denominator[i];
 	}
+	if(factors)
+		delete[] factors;
 }
 
 void TransferFunction::LoadFromFile(string filename)
@@ -95,7 +104,11 @@ void TransferFunction::Interactive(void)
 
 void TransferFunction::AddDenom(void)
 {
-	
+	if(factors)
+	{
+		delete[] factors;
+		factors = NULL;
+	}
 	cout << "Adding denominator"<<endl;
 	denominator.push_back(new LiteralElement(true));
 	denominator.back()->Print();
@@ -104,6 +117,11 @@ void TransferFunction::AddDenom(void)
 
 void TransferFunction::PrintFactors(void)
 {
+	if(factors == NULL)
+	{
+		cout << "Factors are not yet computed!"<<endl;
+		return;
+	}
 	cout << "[ ";
 	for(int i = 0; i < denominator.size()*2-1; i++)
 	{
@@ -115,6 +133,11 @@ void TransferFunction::PrintFactors(void)
 
 void TransferFunction::NicePrintFactors(void)
 {
+	if(factors == NULL)
+	{
+		cout << "Factors are not yet computed!"<<endl;
+		return;
+	}
 	cout << endl;
 	for(int i = 0; i < denominator.size(); i++)
 	{
@@ -152,25 +175,36 @@ TransferFunction::~TransferFunction(void)
 	Clean();
 }
 
-void TransferFunction::FindFactors(void)
+void TransferFunction::FindFactors(bool verbose)
 {
 	LiteralElement* final_numerator = new LiteralElement();
 	final_numerator->Add(new Literal(1,0));
+	LiteralElement* temp_el = NULL;
 	for(int i = 0; i < numerator.size();i++)
 	{
+		temp_el = final_numerator;
 		final_numerator = final_numerator->Multiply(numerator[i]);
+		delete temp_el;
 	}
 
 	//cout << "Expanded numerator: ";final_numerator->Print(); cout << endl;
-	cout << "Numerator: ";
-	for(int i = 0; i < numerator.size(); i++)
-		numerator[i]->Print();
-	cout << endl;
-	cout << "Denominator: ";
-	for(int i = 0; i < denominator.size(); i++)
-		denominator[i]->Print();
-	cout << endl;
-	//cout << "We will need "<<denominator.size()<<" coefficients"<<endl;
+	if(verbose)
+	{
+		cout << "Numerator: ";
+		for(int i = 0; i < numerator.size(); i++)
+			numerator[i]->Print();
+		cout << endl;
+		cout << "Denominator: ";
+		for(int i = 0; i < denominator.size(); i++)
+			denominator[i]->Print();
+		cout << endl;
+	}
+	int system_size = 0;
+	for(int i = 0; i < denominator.size() ; i++)
+	{
+		system_size += denominator[i]->GetMaxPower();
+	}
+	//cout << "We will need "<<system_size<<" coefficients"<<endl;
 	LinearSystem linear_system(denominator.size()*2);
 
 	
@@ -187,10 +221,12 @@ void TransferFunction::FindFactors(void)
 		{
 			if(i == current_factor) // we want to exclude the current factor, obviously
 				continue;
-			//denominator[i]->Print();
+
+			LiteralElement* p_e = elems[current_factor];
 			elems[current_factor] = elems[current_factor]->Multiply(denominator[i]);
+			delete p_e;
 		}
-		//cout << " = ";elems[current_factor]->Print();cout << endl;
+
 	}
 
 	Literal* temp = NULL;
@@ -207,45 +243,33 @@ void TransferFunction::FindFactors(void)
 		}
 		if(denominator[i]->GetMaxPower() < 2)
 			linear_system.SetNullCoefs(i*2);
+
 	}
 
 	for(int i = 0; i <= final_numerator->GetMaxPower(); i++)
 	{
 		Literal* b_elem = final_numerator->Get(i);
 		if(b_elem)
-		{
-			//cout << "Setting b_coef "<<b_elem->coef<<endl;
 			linear_system.Set(i,denominator.size()*2,b_elem->coef);
-		}
 	}
 	
-//	cout << "Before solving:"<<endl;
-	//linear_system.Print();
 	linear_system.Solve();
-	//cout << "After solving:"<<endl;
-//	linear_system.Print();
-	
-	if(correct_factors)
-		delete[] correct_factors;
 
 	if(factors)
 		delete[] factors;
 
-	correct_factors = new long double[denominator.size()*2];
 	factors = new long double[denominator.size()*2];
 	for(int i = 0; i < denominator.size()*2;i++)
 	{
 		factors[i] = linear_system.GetCoef(i);
 	}
 
-
-	for(int i = 0; i < denominator.size(); i++)
+	//cleaning the remaining temporary memory
+	delete final_numerator;
+	for(int i = 0; i < elems.size();i++)
 	{
-		int index = denominator.size() - i;
-		correct_factors[i*2+1] = factors[index*2 - 1];
-		correct_factors[i*2] = factors[index*2 - 2];
+		delete elems[i];
 	}
-
 }
 
 void TransferFunction::TextInput(void)

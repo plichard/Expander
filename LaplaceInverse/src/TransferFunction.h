@@ -12,8 +12,12 @@ public:
 	TransferFunction(void);
 	~TransferFunction(void);
 	void AddNum(void);
+	void RemoveNum(int n);
+
 	void AddDenom(void);
-	void FindFactors(void);
+	void RemoveDenom(int n);
+	
+	void FindFactors(bool verbose = true);
 	void PrintFactors(void);
 	void NicePrintFactors(void);
 	void LoadFromFile(std::string filename); // loads coefs and powers from a file

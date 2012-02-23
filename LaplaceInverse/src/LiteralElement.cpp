@@ -5,6 +5,7 @@ using namespace std;
 
 LiteralElement::LiteralElement(bool interactive)
 {
+	object_count++;;
 	if(!interactive)
 		return;
 	int exp = 0;
@@ -34,6 +35,7 @@ const int LiteralElement::GetMaxPower(void)
 
 LiteralElement::~LiteralElement(void)
 {
+	object_count--;
 	for(LiteralMapIt it = elements.begin(); it != elements.end();it++)
 	{
 		delete it->second;
@@ -110,3 +112,5 @@ void LiteralElement::Print(void)
 	}
 	cout<< ")";
 }
+
+int LiteralElement::object_count = 0;

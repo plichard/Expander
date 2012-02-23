@@ -46,10 +46,15 @@ public:
 		for(LiteralMapIt it = elements.begin();it!=elements.end();it++)
 		{
 			if(it->second->coef == 0)
+			{
 				to_erase.push_back(it->first);
+				delete it->second;
+			}
 		}
 		for(std::vector<int>::iterator it = to_erase.begin(); it != to_erase.end();it++)
+		{
 			elements.erase(*it);
+		}
 	}
 
 	void ChangePower(int d_power);
@@ -96,10 +101,13 @@ public:
 		this->Simplify();
 	}
 
+	static int object_count;
+	
 	
 
 protected:
 	//std::vector<Literal*> elements; //all elements in basic denominator
 	std::map<unsigned int,Literal*> elements;
 };
+
 
