@@ -188,7 +188,9 @@ void TransferFunction::FindFactors(void)
 			if(i == current_factor) // we want to exclude the current factor, obviously
 				continue;
 			//denominator[i]->Print();
+			LiteralElement* p_e = elems[current_factor];
 			elems[current_factor] = elems[current_factor]->Multiply(denominator[i]);
+			delete p_e;
 		}
 		//cout << " = ";elems[current_factor]->Print();cout << endl;
 	}

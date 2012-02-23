@@ -127,7 +127,6 @@ void LinearSystem::Add(int n, int m, long double value)
 	Set(n,m,Get(n,m) + value);
 }
 
-
 LinearSystem::~LinearSystem(void)
 {
 	delete[] m_matrix;
