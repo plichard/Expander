@@ -1,3 +1,4 @@
+
 #include "LinearSystem.h"
 #include <iostream>
 #include <cstdlib>
@@ -40,6 +41,9 @@ long double LinearSystem::GetCoef(int m)
 
 void LinearSystem::Solve(void) // solve using the gauss method (Reduced echelon form)
 {
+
+	bool* used_line = new bool[m_size];
+	memset(used_line,false,m_size*sizeof(bool));
 	int current_line = 0;
 	int current_col = 0;
 	long double current_coef = 0;
@@ -129,3 +133,4 @@ LinearSystem::~LinearSystem(void)
 {
 	delete[] m_matrix;
 }
+
