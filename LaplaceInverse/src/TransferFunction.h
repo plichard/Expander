@@ -16,9 +16,10 @@ public:
 	void FindFactors(void);
 	void PrintFactors(void);
 	void NicePrintFactors(void);
-	void LoadFromFile(std::string filename);
+	void LoadFromFile(std::string filename); // loads coefs and powers from a file
 	void Clean(void);
-	void Interactive(void);
+	void Interactive(void); //asks for coefficients and powers
+	void TextInput(void); //normal text interpretation
 
 private:
 	ElementVec numerator;

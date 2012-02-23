@@ -66,8 +66,13 @@ void LiteralElement::Print(void)
 	char sign_buffer[2];
 
 	cout << "(";
-	for(LiteralMapIt it = elements.begin(); it != elements.end();it++)
+	for( int i = GetMaxPower();i >= 0;i--)
 	{
+		LiteralMapIt it = elements.find(i);
+		if(it == elements.end())
+			continue;
+	//for(LiteralMapIt it = elements.begin(); it != elements.end();it++)
+	//{
 		if(it->first == 0) //power == 0
 		{
 			sprintf(var_buffer,"");

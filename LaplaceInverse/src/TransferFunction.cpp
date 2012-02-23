@@ -3,6 +3,7 @@
 #include <ios>
 #include <iostream>
 #include <cstdlib>
+#include <cstdio>
 #include "LinearSystem.h"
 using namespace std;
 
@@ -42,7 +43,7 @@ void TransferFunction::LoadFromFile(string filename)
 		exit(1) ;
 	}
 	cout << "Opened "<<filename<<endl;
-	int n_num, n_denom,max_power;
+	int n_num,max_power;
 	long double coef;
 	in_stream >> n_num;
 	cout << "Found "<<n_num<<" numerator factors"<<endl;
@@ -101,7 +102,6 @@ void TransferFunction::AddDenom(void)
 	cout<<endl;
 }
 
-
 void TransferFunction::PrintFactors(void)
 {
 	cout << "[ ";
@@ -118,15 +118,34 @@ void TransferFunction::NicePrintFactors(void)
 	cout << endl;
 	for(int i = 0; i < denominator.size(); i++)
 	{
-		LiteralElement e;
-		int index = denominator.size() - i;
-		e.Add(new Literal(factors[index*2 - 1],0));
-		e.Add(new Literal(factors[index*2 - 2],1));
-		e.Print();cout<<"/";denominator[i]->Print();cout <<" + ";
+		cout << "( ";
+		if(factors[i] != 0)
+		{
+			cout << "A"<<i<<".s";
+		}
+		if(factors[i] != 0 && factors[i+1]!= 0)
+		{
+			cout << "+B"<<i;
+		}
+		else if(factors[i] == 0 && factors[i+1]!= 0)
+		{
+			cout << "B"<<i;
+		}
+		cout << " )";
+		cout<<"/";denominator[i]->Print();
+		if(i != denominator.size() -1)
+			cout <<" + ";	
+	}
+	cout <<endl;
+	for(int i = 0; i < denominator.size(); i++)
+	{
+		if(factors[i*2] != 0)
+			cout << "A"<<i<<" = "<<factors[i*2]<<endl;
+		if(factors[i*2+1] != 0)
+			cout << "B"<<i<<" = "<<factors[i*2+1]<<endl;
 	}
 	cout << endl;
 }
-
 
 TransferFunction::~TransferFunction(void)
 {
@@ -227,4 +246,15 @@ void TransferFunction::FindFactors(void)
 		correct_factors[i*2] = factors[index*2 - 2];
 	}
 
+}
+
+void TransferFunction::TextInput(void)
+{
+	char line[1024]="";
+	cout << "Write the numerator: ";
+	
+	fgets(line,1024,stdin);
+	cout << "you entered: "<<line<<endl;
+
+	cout << "Please use another method; not yet usable"<<endl;
 }

@@ -14,8 +14,10 @@ TransferMap functions;
 int main(int argc, char **argv)
 {
 	cout << "Your system supports "<<sizeof(long double)*8<<"bit precision"<<endl;
+
 	int choice;
 	TransferFunction f1;
+	//f1.TextInput();
 	cout << "Interactive or from file(0,1): ";
 	cin >> choice;
 
@@ -37,5 +39,7 @@ int main(int argc, char **argv)
 	f1.FindFactors();
 
 	cout << "Factors: "; f1.PrintFactors(); cout << endl;
+	f1.NicePrintFactors();
+	
 	return 0;
 }
