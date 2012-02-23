@@ -13,6 +13,7 @@ TransferMap functions;
 
 int main(int argc, char **argv)
 {
+	cout << "Your system supports "<<sizeof(long double)*8<<"bit precision"<<endl;
 	int choice;
 	TransferFunction f1;
 	cout << "Interactive or from file(0,1): ";
@@ -23,6 +24,7 @@ int main(int argc, char **argv)
 		string filename;
 		cout << "File to load:";
 		cin >> filename;
+
 		f1.LoadFromFile(filename);
 	}
 	else if(choice == 0)

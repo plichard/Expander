@@ -11,7 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Factor.cpp" />
     <ClCompile Include="src\LinearSystem.cpp" />
     <ClCompile Include="src\Literal.cpp" />
     <ClCompile Include="src\LiteralElement.cpp" />
@@ -19,7 +18,6 @@
     <ClCompile Include="src\TransferFunction.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Factor.h" />
     <ClInclude Include="src\LinearSystem.h" />
     <ClInclude Include="src\Literal.h" />
     <ClInclude Include="src\LiteralElement.h" />
@@ -70,6 +68,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

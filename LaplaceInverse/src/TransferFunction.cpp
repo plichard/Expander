@@ -94,6 +94,7 @@ void TransferFunction::Interactive(void)
 
 void TransferFunction::AddDenom(void)
 {
+	
 	cout << "Adding denominator"<<endl;
 	denominator.push_back(new LiteralElement(true));
 	denominator.back()->Print();
