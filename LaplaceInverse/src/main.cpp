@@ -30,7 +30,7 @@ int main(int argc, char **argv)
 	int choice;
 	TransferFunction* f1 = new TransferFunction;
 	//f1.TextInput();
-	/*cout << "Interactive or from file(0,1): ";
+	cout << "Interactive or from file(0,1): ";
 	cin >> choice;
 
 	if(choice == 1)
@@ -48,8 +48,8 @@ int main(int argc, char **argv)
 		cout << "Unkown choice, exiting."<<endl;
 		exit(0);
 	}
-*/
-	f1->LoadFromFile("test2");
+
+	/*
 	int max_loop = 1000;
 	int bar_size = 20;
 	cout << "[";
@@ -59,8 +59,8 @@ int main(int argc, char **argv)
 			cout<<"=";fflush(stdout);
 		f1->FindFactors(false);
 	}
-	cout << "]"<<endl;
-	//f1->FindFactors();
+	cout << "]"<<endl;*/
+	f1->FindFactors();
 	
 
 	cout << "Factors: "; f1->PrintFactors(); cout << endl;
