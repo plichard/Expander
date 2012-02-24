@@ -39,10 +39,10 @@ int main(int argc, char **argv)
 		cout << "File to load:";
 		cin >> filename;
 
-		f1.LoadFromFile(filename);
+		f1->LoadFromFile(filename);
 	}
 	else if(choice == 0)
-		f1.Interactive();
+		f1->Interactive();
 	else
 	{
 		cout << "Unkown choice, exiting."<<endl;
