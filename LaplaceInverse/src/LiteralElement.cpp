@@ -100,7 +100,7 @@ void LiteralElement::Print(void)
 		else if(it->second->coef == 1)
 			sprintf(coef_buffer,"");
 		else
-			sprintf(coef_buffer,"%1.0Lf",it->second->coef);
+			sprintf(coef_buffer,"%Lf",it->second->coef); //%1.0Lf
 
 		if(it->second->coef == 0)
 		{
