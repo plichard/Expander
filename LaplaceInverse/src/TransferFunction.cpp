@@ -87,7 +87,7 @@ void TransferFunction::LoadFromFile(string filename)
 
 void TransferFunction::Interactive(void)
 {
-	int num,denom;
+	int num=0,denom=0;
 	cout << "number of numerator factors: ";
 	cin >> num;
 	for(int i = 0; i < num; i++)
@@ -143,21 +143,21 @@ void TransferFunction::NicePrintFactors(void)
 	for(int i = 0; i < denominator.size(); i++)
 	{
 		cout << "( ";
-		if(factors[i] != 0)
+		if(factors[2*i] != 0)
 		{
 			cout << "A"<<i<<".s";
 		}
-		if(factors[i] != 0 && factors[i+1]!= 0)
+		if(factors[2*i] != 0 && factors[2*i+1]!= 0)
 		{
 			cout << "+B"<<i;
 		}
-		else if(factors[i] == 0 && factors[i+1]!= 0)
+		else if(factors[2*i] == 0 && factors[2*i+1]!= 0)
 		{
 			cout << "B"<<i;
 		}
 		cout << " )";
 		cout<<"/";denominator[i]->Print();
-		if(i != denominator.size() -1)
+		if(i != denominator.size() - 1)
 			cout <<" + ";	
 	}
 	cout <<endl;
@@ -185,7 +185,7 @@ void TransferFunction::FindFactors(bool verbose)
 	{
 		temp_el = final_numerator;
 		final_numerator = final_numerator->Multiply(numerator[i]);
-		delete temp_el;
+		delete temp_el; //we have to delete the previous LiteralElement used, Multiply creates a new one
 	}
 
 	//cout << "Expanded numerator: ";final_numerator->Print(); cout << endl;
@@ -200,6 +200,7 @@ void TransferFunction::FindFactors(bool verbose)
 			denominator[i]->Print();
 		cout << endl;
 	}
+	//now lets find the denominator rank
 	int system_size = 0;
 	for(int i = 0; i < denominator.size() ; i++)
 	{
@@ -207,17 +208,13 @@ void TransferFunction::FindFactors(bool verbose)
 	}
 	//cout << "We will need "<<system_size<<" coefficients"<<endl;
 	LinearSystem linear_system(denominator.size()*2);
-
 	
 	ElementVec elems(denominator.size());
-	for(int i = 0 ; i < elems.size() ; i++)
-	{
-		elems[i] = new LiteralElement();
-		elems[i]->Add(new Literal(1,0));
-	}
 
 	for(int current_factor = 0; current_factor < denominator.size(); current_factor++)
 	{
+		elems[current_factor] = new LiteralElement();
+		elems[current_factor]->Add(new Literal(1,0));
 		for(int i = 0; i < denominator.size();i++) // create the expanded factor for a "As + B" coef
 		{
 			if(i == current_factor) // we want to exclude the current factor, obviously
@@ -225,11 +222,11 @@ void TransferFunction::FindFactors(bool verbose)
 
 			LiteralElement* p_e = elems[current_factor];
 			elems[current_factor] = elems[current_factor]->Multiply(denominator[i]);
-			delete p_e;
+			delete p_e; //erase the previous element, multiply creates a new one
 		}
-
+		cout << "factor "<<current_factor<<":"; elems[current_factor]->Print();cout<<endl;
 	}
-
+	//linear_system.Print();
 	Literal* temp = NULL;
 	for(int i = 0; i < denominator.size(); i++) // we loop through every expanded factor
 	{
@@ -239,11 +236,19 @@ void TransferFunction::FindFactors(bool verbose)
 			if(!temp)
 				continue;
 			
+		//	printf_s("adding A%d.s^%d\n",i,pow+1);
 			linear_system.Add(pow+1,i*2,temp->coef); //factor multiplied by As, power increases by 1
+			//linear_system.Print();
+		//	printf_s("adding B%d.s^%d\n",i,pow);
 			linear_system.Add(pow,i*2+1,temp->coef); // factor multiplied by B
+			//linear_system.Print();
 		}
 		if(denominator[i]->GetMaxPower() < 2)
+		{
+		//	printf_s("setting null coefs to %d\n",i);
 			linear_system.SetNullCoefs(i*2);
+			//linear_system.Print();
+		}
 
 	}
 
@@ -253,7 +258,8 @@ void TransferFunction::FindFactors(bool verbose)
 		if(b_elem)
 			linear_system.Set(i,denominator.size()*2,b_elem->coef);
 	}
-	
+	//linear_system.Print();
+
 	linear_system.Solve();
 
 	if(factors)

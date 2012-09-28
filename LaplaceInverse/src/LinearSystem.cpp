@@ -8,7 +8,7 @@ using namespace std;
 LinearSystem::LinearSystem(int size):m_size(size),m_null_coefs(0)
 {
 	m_matrix = new long double[(size+size/2)*(size+1)]; //we add size/2 for all the possible null coefs, maybe not the most optimal method, but it works
-	if(!m_matrix)
+	if(!m_matrix)										// +1 column for the result side of the system
 	{
 		cout << "omg epic memory fail"<<endl;
 		exit(1);
@@ -41,7 +41,7 @@ long double LinearSystem::GetCoef(int m)
 
 void LinearSystem::Solve(void) // solve using the gauss method (Reduced echelon form)
 {
-
+	printf_s("solve started\n");
 	bool* used_line = new bool[m_size];
 	memset(used_line,false,m_size*sizeof(bool));
 	int current_line = 0;
@@ -103,6 +103,7 @@ void LinearSystem::SubstractLine(int n1, int n2, long double coef) //n1 = n1 - c
 void LinearSystem::Print(void)
 {
 	cout<<endl<<"==============="<<endl;
+	
 	for(int y = 0; y <m_size+m_size/2; y++)
 	{
 		for(int x = 0; x < m_size+1;x++)

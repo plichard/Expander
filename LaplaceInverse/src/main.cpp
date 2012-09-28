@@ -69,6 +69,6 @@ int main(int argc, char **argv)
 	cout << "memory stats(lost objects): "<<endl;
 	cout << "LiteralElement: "<<LiteralElement::object_count<<endl;
 	cout << "Literal       : "<<Literal::object_count<<endl;
-	
+	system("pause");
 	return 0;
 }
